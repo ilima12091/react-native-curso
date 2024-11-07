@@ -2,17 +2,69 @@ import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {colors, globalStyles} from '../../config/theme/app-theme';
 import {CalculatorButton} from '../components/CalculatorButton';
+import {useCalculator} from '../hooks/useCalculator';
 
 export const CalculatorScreen = () => {
+  const {
+    number,
+    previousNumber,
+    formula,
+    buildNumber,
+    clean,
+    deleteLast,
+    toggleSign,
+    divideOperation,
+    multiplyOperation,
+    subtractOperation,
+    addOperation,
+    calculateResult,
+  } = useCalculator();
+
   const handleButtonPress = (value: string) => {
-    console.log('Button pressed: ', value);
+    if ('0123456789.'.includes(value)) {
+      buildNumber(value);
+    }
+    if (value === 'C') {
+      clean();
+    }
+    if (value === 'del') {
+      deleteLast();
+    }
+    if (value === '+/-') {
+      toggleSign();
+    }
+    if (value === '/') {
+      divideOperation();
+    }
+    if (value === 'x') {
+      multiplyOperation();
+    }
+    if (value === '-') {
+      subtractOperation();
+    }
+    if (value === '+') {
+      addOperation();
+    }
+    if (value === '=') {
+      calculateResult();
+    }
   };
 
   return (
     <View style={globalStyles.calculatorContainer}>
       <View style={styles.resultsContainer}>
-        <Text style={globalStyles.mainResult}>1500</Text>
-        <Text style={globalStyles.subResult}>15</Text>
+        <Text
+          adjustsFontSizeToFit
+          numberOfLines={1}
+          style={globalStyles.mainResult}>
+          {formula}
+        </Text>
+        <Text
+          adjustsFontSizeToFit
+          numberOfLines={1}
+          style={globalStyles.subResult}>
+          {formula === previousNumber ? '' : previousNumber}
+        </Text>
       </View>
       <View style={globalStyles.row}>
         <CalculatorButton

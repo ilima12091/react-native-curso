@@ -1,13 +1,15 @@
+import {useWindowDimensions, View} from 'react-native';
 import {
   createDrawerNavigator,
   DrawerContentComponentProps,
   DrawerContentScrollView,
   DrawerItemList,
 } from '@react-navigation/drawer';
-import {StackNavigator} from './StackNavigator';
+import {Ionicons} from '@react-native-vector-icons/ionicons';
+
 import {ProfileScreen} from '../screens/profile/ProfileScreen';
 import {globalColors} from '../theme/theme';
-import {Text, useWindowDimensions, View} from 'react-native';
+import {BottomTabsNavigator} from './BottomTabsNavigator';
 
 const {Navigator, Screen} = createDrawerNavigator();
 
@@ -25,8 +27,24 @@ export const DrawerNavigator = () => {
         drawerInactiveTintColor: globalColors.primary,
       }}
       drawerContent={CustomDrawerContent}>
-      <Screen name="StackNavigator" component={StackNavigator} />
-      <Screen name="Profile" component={ProfileScreen} />
+      <Screen
+        name="StackNavigator"
+        component={BottomTabsNavigator}
+        options={{
+          drawerIcon: ({color}) => (
+            <Ionicons name="home-outline" size={26} color={color} />
+          ),
+        }}
+      />
+      <Screen
+        name="Profile"
+        component={ProfileScreen}
+        options={{
+          drawerIcon: ({color}) => (
+            <Ionicons name="person-outline" size={26} color={color} />
+          ),
+        }}
+      />
     </Navigator>
   );
 };

@@ -13,7 +13,7 @@ export const SwitchScreen = () => {
   });
 
   return (
-    <CustomView>
+    <CustomView isHorizontallyPadded isVerticallyPadded>
       <Card>
         <CustomSwitch
           isOn={state.isActive}

@@ -6,6 +6,7 @@ import { IoniconsIconName } from '@react-native-vector-icons/ionicons';
 import { globalStyles } from '../../../config/theme/theme';
 import { Title } from '../../components/ui/Title';
 import { MenuItemsList } from '../../components/ui/MenuItemsList';
+import { CustomView } from '../../components/ui/CustomView';
 
 interface MenuItemData {
   name: string;
@@ -79,18 +80,16 @@ const uiMenuItems: MenuItemData[] = [
 
 export const HomeScreen = () => {
   return (
-    <View style={globalStyles.mainContainer}>
-      <View style={globalStyles.globalMargin}>
-        <ScrollView>
-          <Title text="Menu Options" safe />
-          <View style={styles.optionsContainer}>
-            <MenuItemsList title="Animation" items={animationMenuItems} />
-            <MenuItemsList title="Components" items={menuItems} />
-            <MenuItemsList title="UI" items={uiMenuItems} />
-          </View>
-        </ScrollView>
-      </View>
-    </View>
+    <CustomView isHorizontallyPadded>
+      <ScrollView>
+        <Title text="Menu Options" safe />
+        <View style={styles.optionsContainer}>
+          <MenuItemsList title="Animation" items={animationMenuItems} />
+          <MenuItemsList title="UI" items={uiMenuItems} />
+          <MenuItemsList title="Components" items={menuItems} />
+        </View>
+      </ScrollView>
+    </CustomView>
   );
 };
 

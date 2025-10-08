@@ -1,7 +1,9 @@
-import React from 'react';
-import { Text, View } from 'react-native';
-import { colors, globalStyles } from '../../../config/theme/theme';
+import React, { useContext } from 'react';
+import { Text } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+
+import { globalStyles } from '../../../config/theme/theme';
+import { ThemeContext } from '../../context/ThemeContext';
 
 interface SubTitleProps {
   text: string;
@@ -10,6 +12,8 @@ interface SubTitleProps {
 }
 
 export const SubTitle = (props: SubTitleProps) => {
+  const { colors } = useContext(ThemeContext);
+
   const { text, safe = false, backgroundColor = colors.cardBackground } = props;
 
   const { top } = useSafeAreaInsets();
@@ -21,6 +25,7 @@ export const SubTitle = (props: SubTitleProps) => {
         marginTop: safe ? top : 0,
         marginBottom: 10,
         backgroundColor,
+        color: colors.text,
       }}
     >
       {text}

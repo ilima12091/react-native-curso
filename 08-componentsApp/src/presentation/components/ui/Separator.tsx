@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
-import { colors } from '../../../config/theme/theme';
+
+import { ThemeContext } from '../../context/ThemeContext';
 
 interface SeparatorProps {
   style?: StyleProp<ViewStyle>;
@@ -10,9 +11,18 @@ interface SeparatorProps {
 export const Separator = (props: SeparatorProps) => {
   const { style, hasVerticalMargin = false } = props;
 
+  const { colors } = useContext(ThemeContext);
+
   return (
     <View
-      style={[styles.separator, style, hasVerticalMargin && styles.margin]}
+      style={[
+        styles.separator,
+        {
+          backgroundColor: colors.text,
+        },
+        hasVerticalMargin && styles.margin,
+        style,
+      ]}
     />
   );
 };
@@ -22,7 +32,6 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     width: '90%',
     height: 1,
-    backgroundColor: colors.text,
     opacity: 0.1,
   },
   margin: {

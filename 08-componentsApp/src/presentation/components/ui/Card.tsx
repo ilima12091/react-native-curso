@@ -1,6 +1,7 @@
-import React, { PropsWithChildren } from 'react';
+import React, { PropsWithChildren, useContext } from 'react';
 import { StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
-import { colors } from '../../../config/theme/theme';
+
+import { ThemeContext } from '../../context/ThemeContext';
 
 interface CardProps extends PropsWithChildren {
   style?: StyleProp<ViewStyle>;
@@ -9,12 +10,25 @@ interface CardProps extends PropsWithChildren {
 export const Card = (props: CardProps) => {
   const { style, children } = props;
 
-  return <View style={[styles.card, style]}>{children}</View>;
+  const { colors } = useContext(ThemeContext);
+
+  return (
+    <View
+      style={[
+        styles.card,
+        {
+          backgroundColor: colors.cardBackground,
+        },
+        style,
+      ]}
+    >
+      {children}
+    </View>
+  );
 };
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: colors.cardBackground,
     borderRadius: 10,
     padding: 16,
   },

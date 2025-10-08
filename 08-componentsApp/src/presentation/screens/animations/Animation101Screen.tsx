@@ -1,17 +1,14 @@
-import React, { useRef } from 'react';
-import {
-  Animated,
-  Easing,
-  Pressable,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+import React, { useContext } from 'react';
+import { Animated, Easing, Pressable, StyleSheet, Text } from 'react-native';
 
-import { colors } from '../../../config/theme/theme';
 import { useAnimation } from '../../hooks/useAnimation';
+import { CustomView } from '../../components/ui/CustomView';
+import { ThemeContext } from '../../context/ThemeContext';
+import { Button } from '../../components/ui/Button';
 
 export const Animation101Screen = () => {
+  const { colors } = useContext(ThemeContext);
+
   const {
     animatedOpacity,
     animatedTop,
@@ -36,21 +33,18 @@ export const Animation101Screen = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <CustomView style={styles.container}>
       <Animated.View
         style={{
           ...styles.purpleBox,
+          backgroundColor: colors.primary,
           opacity: animatedOpacity,
           transform: [{ translateY: animatedTop }],
         }}
       />
-      <Pressable onPress={handleFadeIn}>
-        <Text>Fade In</Text>
-      </Pressable>
-      <Pressable onPress={handleFadeOut}>
-        <Text>Fade Out</Text>
-      </Pressable>
-    </View>
+      <Button text="Fade In" onPress={handleFadeIn} />
+      <Button text="Fade Out" onPress={handleFadeOut} />
+    </CustomView>
   );
 };
 
@@ -62,7 +56,6 @@ const styles = StyleSheet.create({
     gap: 16,
   },
   purpleBox: {
-    backgroundColor: colors.primary,
     width: 150,
     height: 150,
   },

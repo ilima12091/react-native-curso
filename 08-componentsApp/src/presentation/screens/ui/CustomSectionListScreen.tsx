@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {
   SectionList,
   StyleSheet,
@@ -9,8 +9,9 @@ import {
 import { CustomView } from '../../components/ui/CustomView';
 import { Title } from '../../components/ui/Title';
 import { Card } from '../../components/ui/Card';
-import { SubTitle } from '../../components/ui/Subtitle';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { SubTitle } from '../../components/ui/SubTitle';
+import { ThemeContext } from '../../context/ThemeContext';
 
 interface Houses {
   title: string;
@@ -97,6 +98,7 @@ const houses: Houses[] = [
 export const CustomSectionListScreen = () => {
   const { height } = useWindowDimensions();
   const { top } = useSafeAreaInsets();
+  const { colors } = useContext(ThemeContext);
 
   return (
     <CustomView isHorizontallyPadded>
@@ -105,7 +107,9 @@ export const CustomSectionListScreen = () => {
         <SectionList
           sections={houses}
           keyExtractor={item => item}
-          renderItem={({ item }) => <Text>{item}</Text>}
+          renderItem={({ item }) => (
+            <Text style={{ color: colors.text }}>{item}</Text>
+          )}
           renderSectionHeader={({ section }) => (
             <SubTitle text={section.title} />
           )}

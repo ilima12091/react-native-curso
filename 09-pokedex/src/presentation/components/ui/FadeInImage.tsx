@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   ActivityIndicator,
   Animated,
@@ -6,7 +6,7 @@ import {
   StyleProp,
   View,
 } from 'react-native';
-import { colors } from '../../../config/theme/theme';
+
 import { useAnimation } from '../../hooks/useAnimation';
 
 interface FadeInImageProps {
@@ -17,9 +17,23 @@ interface FadeInImageProps {
 export const FadeInImage = (props: FadeInImageProps) => {
   const { uri, style } = props;
 
+  const isDisposed = useRef(false);
+
   const { animatedOpacity, fadeIn } = useAnimation();
 
   const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    return () => {
+      isDisposed.current = true;
+    };
+  }, []);
+
+  const onLoadEnd = () => {
+    if (isDisposed.current) return;
+    setIsLoading(false);
+    fadeIn({});
+  };
 
   return (
     <View
@@ -29,11 +43,7 @@ export const FadeInImage = (props: FadeInImageProps) => {
       }}
     >
       {isLoading && (
-        <ActivityIndicator
-          color={colors.primary}
-          size="large"
-          style={{ position: 'absolute' }}
-        />
+        <ActivityIndicator size="large" style={{ position: 'absolute' }} />
       )}
       <Animated.Image
         source={{ uri }}
@@ -43,10 +53,7 @@ export const FadeInImage = (props: FadeInImageProps) => {
             opacity: animatedOpacity,
           },
         ]}
-        onLoadEnd={() => {
-          setIsLoading(false);
-          fadeIn({});
-        }}
+        onLoadEnd={onLoadEnd}
       />
     </View>
   );

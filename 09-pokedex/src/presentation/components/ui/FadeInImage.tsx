@@ -51,6 +51,7 @@ export const FadeInImage = (props: FadeInImageProps) => {
           style,
           {
             opacity: animatedOpacity,
+            resizeMode: 'contain',
           },
         ]}
         onLoadEnd={onLoadEnd}

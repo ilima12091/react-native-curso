@@ -7,7 +7,6 @@ export const getColorFromImage = async (image: string) => {
     const colors = await getPalette(image, {
       fallbackColor,
     });
-    console.log('colors: ', colors);
 
     return colors.muted;
   } catch (error) {

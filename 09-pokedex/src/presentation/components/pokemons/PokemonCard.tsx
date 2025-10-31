@@ -1,9 +1,11 @@
 import React from 'react';
-import { Image, StyleSheet, View } from 'react-native';
+import { Image, Pressable, StyleSheet, View } from 'react-native';
 import { Card, Text } from 'react-native-paper';
 
 import { Pokemon } from '../../../domain/entities/pokemon';
 import { FadeInImage } from '../ui/FadeInImage';
+import { NavigationProp, useNavigation } from '@react-navigation/native';
+import { RootStackParams } from '../../navigation/StackNavigator';
 
 interface PokemonCardProps {
   pokemon: Pokemon;
@@ -12,32 +14,40 @@ interface PokemonCardProps {
 export const PokemonCard = (props: PokemonCardProps) => {
   const { pokemon } = props;
 
-  console.log(pokemon);
+  const navigation = useNavigation<NavigationProp<RootStackParams>>();
+
+  const onPress = () => {
+    navigation.navigate('PokemonScreen', { pokemonId: pokemon.id });
+  };
+
   return (
-    <Card
-      style={[
-        styles.cardContainer,
-        {
-          backgroundColor: pokemon.color,
-        },
-      ]}
-    >
-      <Text style={styles.name} variant="bodyLarge" lineBreakMode="middle">
-        {pokemon.name}
-        {'\n#' + pokemon.id}
-      </Text>
-      <View style={styles.pokeballContainer}>
-        <Image
-          source={require('../../../assets/pokeball-light.png')}
-          style={styles.pokeball}
+    <Pressable style={{ flex: 1 }} onPress={onPress}>
+      <Card
+        style={[
+          styles.cardContainer,
+          {
+            backgroundColor: pokemon.color,
+          },
+        ]}
+      >
+        <Text style={styles.name} variant="bodyLarge" lineBreakMode="middle">
+          {pokemon.name}
+          {'\n#' + pokemon.id}
+        </Text>
+        <View style={styles.pokeballContainer}>
+          <Image
+            source={require('../../../assets/pokeball-light.png')}
+            style={styles.pokeball}
+          />
+        </View>
+        <FadeInImage
+          // uri="https://static.wikia.nocookie.net/pokemongo_gamepedia_en/images/d/dd/Unknown.png"
+          uri={pokemon.avatar}
+          style={styles.pokemonImage}
         />
-      </View>
-      <FadeInImage
-        uri="https://static.wikia.nocookie.net/pokemongo_gamepedia_en/images/d/dd/Unknown.png"
-        style={styles.pokemonImage}
-      />
-      <Text style={[styles.name, { marginTop: 32 }]}>{pokemon.types[0]}</Text>
-    </Card>
+        <Text style={[styles.name, { marginTop: 32 }]}>{pokemon.types[0]}</Text>
+      </Card>
+    </Pressable>
   );
 };
 

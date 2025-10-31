@@ -9,10 +9,10 @@ export class PokemonMapper {
     const sprites = PokemonMapper.getSprites(data);
     const avatar = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${data.id}.png`;
 
-    const color = await getColorFromImage(
-      'https://static.wikia.nocookie.net/pokemongo_gamepedia_en/images/d/dd/Unknown.png',
-    );
-    // const color = (await getColorFromImage(avatar)) ?? 'grey';
+    // const color = await getColorFromImage(
+    //   'https://static.wikia.nocookie.net/pokemongo_gamepedia_en/images/d/dd/Unknown.png',
+    // );
+    const color = (await getColorFromImage(avatar)) ?? 'grey';
 
     return {
       id: data.id,
@@ -21,6 +21,18 @@ export class PokemonMapper {
       color,
       avatar,
       sprites,
+      games: data.game_indices.map(({ version }) => version.name),
+      stats: data.stats.map(({ base_stat, stat }) => ({
+        name: stat.name,
+        value: base_stat,
+      })),
+      abilities: data.abilities.map(({ ability }) => ability?.name ?? '-'),
+      moves: data.moves
+        .map(({ move, version_group_details }) => ({
+          name: move.name,
+          level: version_group_details[0]?.level_learned_at ?? 0,
+        }))
+        .sort((a, b) => a.level - b.level),
     };
   }
 

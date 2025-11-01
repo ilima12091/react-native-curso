@@ -1,6 +1,6 @@
 import React from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
-import { Text } from 'react-native-paper';
+import { Text, FAB } from 'react-native-paper';
 import { useInfiniteQuery, useQueryClient } from '@tanstack/react-query';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
@@ -9,10 +9,19 @@ import { PokeballBg } from '../../components/ui/PokeballBg';
 import { globalTheme } from '../../../config/theme/global-theme';
 import { PokemonCard } from '../../components/pokemons/PokemonCard';
 import { FullScreenLoader } from '../../components/ui/FullScreenLoader';
+import { useThemeContext } from '../../context/ThemeContext';
+import { StackScreenProps } from '@react-navigation/stack';
+import { RootStackParams } from '../../navigation/StackNavigator';
 
-export const HomeScreen = () => {
+interface HomeScreenProps
+  extends StackScreenProps<RootStackParams, 'HomeScreen'> {}
+
+export const HomeScreen = (props: HomeScreenProps) => {
+  const { navigation } = props;
+
   const { top } = useSafeAreaInsets();
   const queryClient = useQueryClient();
+  const { theme, isDark } = useThemeContext();
 
   const { isLoading, data, fetchNextPage } = useInfiniteQuery({
     queryKey: ['pokemons', 'infinite'],
@@ -28,6 +37,10 @@ export const HomeScreen = () => {
     getNextPageParam: (lastPage, allPages) => allPages.length,
     staleTime: 1000 * 60 * 5,
   });
+
+  const onNavigateToSearch = () => {
+    navigation.navigate('SearchScreen');
+  };
 
   if (isLoading) {
     return <FullScreenLoader />;
@@ -45,6 +58,18 @@ export const HomeScreen = () => {
         onEndReachedThreshold={0.6}
         onEndReached={() => fetchNextPage()}
         showsVerticalScrollIndicator={false}
+      />
+      <FAB
+        label="Buscar"
+        style={[
+          globalTheme.fab,
+          {
+            backgroundColor: theme.colors.primary,
+          },
+        ]}
+        mode="elevated"
+        color={isDark ? 'black' : 'white'}
+        onPress={onNavigateToSearch}
       />
     </View>
   );

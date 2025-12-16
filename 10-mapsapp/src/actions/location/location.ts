@@ -21,3 +21,25 @@ export const getCurrentLocation = async (): Promise<Location> => {
     );
   });
 };
+
+export const watchCurrentLocation = (
+  locationCallback: (location: Location) => void,
+): number => {
+  return Geolocation.watchPosition(
+    info =>
+      locationCallback({
+        latitude: info.coords.latitude,
+        longitude: info.coords.longitude,
+      }),
+    error => {
+      throw new Error(`Error watching location: ${error.message}`);
+    },
+    {
+      enableHighAccuracy: true,
+    },
+  );
+};
+
+export const clearLocationWatch = (watchId: number): void => {
+  Geolocation.clearWatch(watchId);
+};

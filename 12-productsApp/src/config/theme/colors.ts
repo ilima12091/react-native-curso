@@ -1,7 +1,13 @@
 export const lightColors = {
-  'color-primary': 'rgb(147, 197, 253)',
+  '--primary': '59, 130, 246',
+  '--screen': '255, 255, 255',
+  '--text': '0, 0, 0',
+  '--text-primary-contrast': '255, 255, 255',
 };
 
 export const darkColors = {
-  'color-primary': 'rgb(59, 130, 246)',
+  '--primary': '29, 78, 216',
+  '--screen': '25, 25, 25',
+  '--text': '230, 230, 230',
+  '--text-primary-contrast': '255, 255, 255',
 };

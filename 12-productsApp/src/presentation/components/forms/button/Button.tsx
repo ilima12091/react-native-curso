@@ -1,7 +1,8 @@
 import React from 'react';
-import { Pressable, Text } from 'react-native';
+import { Pressable } from 'react-native';
 import { VariantProps } from 'tailwind-variants';
 import { buttonStyles } from './styles';
+import { Text } from '../../text/Text';
 
 export type ButtonProps = {
   label: string;
@@ -16,7 +17,7 @@ export const Button = (props: ButtonProps) => {
       className={`${buttonStyles({ variant })} ${className}`}
       {...props}
     >
-      <Text className="text-white font-bold">{label}</Text>
+      <Text className="color-text-primary-contrast font-bold">{label}</Text>
     </Pressable>
   );
 };

@@ -5,7 +5,11 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: 'rgb(var(--color-primary) / <alpha-value>)',
+        primary: 'rgb(var(--primary) / <alpha-value>)',
+        screen: 'rgb(var(--screen) / <alpha-value>)',
+        text: 'rgb(var(--text) / <alpha-value>)',
+        'text-primary-contrast':
+          'rgb(var(--text-primary-contrast) / <alpha-value>)',
       },
     },
   },

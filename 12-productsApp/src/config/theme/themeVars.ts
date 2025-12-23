@@ -1,11 +1,11 @@
 import { vars } from 'nativewind';
-import { darkColors, lightColors } from './colors';
+import { colors } from './colors';
 
 export const themeVars = {
   light: vars({
-    ...lightColors,
+    ...colors.light,
   }),
   dark: vars({
-    ...darkColors,
+    ...colors.dark,
   }),
 };

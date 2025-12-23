@@ -8,7 +8,7 @@ export const Text = (props: TextProps) => {
   const { children, className = '' } = props;
 
   return (
-    <RNText {...props} className={`${textStyles()} ${className}`}>
+    <RNText {...props} className={`${textStyles()} ${className} color-primary`}>
       {children}
     </RNText>
   );

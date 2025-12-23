@@ -11,3 +11,8 @@ export const darkColors = {
   '--text': '230, 230, 230',
   '--text-primary-contrast': '255, 255, 255',
 };
+
+export const colors = {
+  light: lightColors,
+  dark: darkColors,
+};

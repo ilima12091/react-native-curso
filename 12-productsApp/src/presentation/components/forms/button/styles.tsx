@@ -1,12 +1,25 @@
 import { tv } from 'tailwind-variants';
 
 export const buttonStyles = tv({
-  base: 'items-center rounded p-4 active:opacity-70',
+  base: 'items-center rounded p-4 active:opacity-70 disabled:opacity-60',
   variants: {
     variant: {
       primary: 'bg-primary',
       secondary: 'bg-gray-500',
-      link: 'bg-transparent',
+      link: 'bg-transparent text-primary p-0',
+      danger: 'bg-red-600',
+    },
+  },
+});
+
+export const buttonTextStyles = tv({
+  base: 'color-text-primary-contrast font-bold',
+  variants: {
+    variant: {
+      primary: 'text-white',
+      secondary: 'text-white',
+      link: '!color-primary',
+      danger: 'text-white',
     },
   },
 });

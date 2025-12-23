@@ -1,10 +1,20 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import { Text } from 'react-native';
+
+import { Button } from '../../components/forms';
+import { useAuthStore } from '../../store/auth/useAuthStore';
+import { ScreenContainer } from '../../components/screenContainer/ScreenContainer';
 
 export const HomeScreen = () => {
+  const { logout } = useAuthStore();
+
   return (
-    <View>
+    <ScreenContainer
+      hasHorizontalPadding
+      className="flex-1 items-center justify-center"
+    >
       <Text>HomeScreen</Text>
-    </View>
+      <Button label="Cerrar sesión" onPress={logout} variant="danger" />
+    </ScreenContainer>
   );
 };

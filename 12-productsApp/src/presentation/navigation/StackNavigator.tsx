@@ -9,6 +9,7 @@ import { HomeScreen } from '../screens/home/HomeScreen';
 import { LoginScreen } from '../screens/auth/LoginScreen';
 import { RegisterScreen } from '../screens/auth/RegisterScreen';
 import { ProductScreen } from '../screens/products/ProductScreen';
+import { CustomHeader } from '../components/navigation/CustomHeader';
 
 export type RootStackParams = {
   LoginScreen: undefined;

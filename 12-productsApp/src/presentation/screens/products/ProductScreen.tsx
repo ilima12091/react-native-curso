@@ -1,10 +1,11 @@
 import React from 'react';
 import { Text, View } from 'react-native';
+import { ScreenContainer } from '../../components/screenContainer/ScreenContainer';
 
 export const ProductScreen = () => {
   return (
-    <View>
-      <Text>ProductScreen</Text>
-    </View>
+    <ScreenContainer>
+      <Text>Product Screen</Text>
+    </ScreenContainer>
   );
 };

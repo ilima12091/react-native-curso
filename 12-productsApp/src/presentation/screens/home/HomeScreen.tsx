@@ -1,20 +1,40 @@
 import React from 'react';
-import { Text } from 'react-native';
+import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 
-import { Button } from '../../components/forms';
-import { useAuthStore } from '../../store/auth/useAuthStore';
 import { ScreenContainer } from '../../components/screenContainer/ScreenContainer';
+import { getProductsByPage } from '../../../actions/products/get-products-by-page';
+import { FullScreenLoader } from '../../components/fullScreenLoader/FullScreenLoader';
+import { ProductsList } from '../../components/products/ProductsList';
 
 export const HomeScreen = () => {
-  const { logout } = useAuthStore();
+  const {
+    isLoading,
+    data: products,
+    fetchNextPage,
+  } = useInfiniteQuery({
+    queryKey: ['products', 'infinite'],
+    staleTime: 1000 * 60 * 5,
+    initialPageParam: 0,
+    queryFn: ({ pageParam = 0 }) => getProductsByPage(pageParam),
+    getNextPageParam: (lastPage, allPages) => allPages.length,
+  });
+
+  // const { isLoading, data: products } = useQuery({
+  //   queryKey: ['products', 'infinite'],
+  //   staleTime: 1000 * 60 * 5,
+  //   queryFn: () => getProductsByPage(0),
+  // });
 
   return (
-    <ScreenContainer
-      hasHorizontalPadding
-      className="flex-1 items-center justify-center"
-    >
-      <Text>HomeScreen</Text>
-      <Button label="Cerrar sesión" onPress={logout} variant="danger" />
+    <ScreenContainer className="flex-1 items-center justify-center">
+      {isLoading ? (
+        <FullScreenLoader />
+      ) : (
+        <ProductsList
+          products={products?.pages?.flat() ?? []}
+          fetchNextPage={fetchNextPage}
+        />
+      )}
     </ScreenContainer>
   );
 };

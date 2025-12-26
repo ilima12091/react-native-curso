@@ -26,7 +26,11 @@ export const HomeScreen = () => {
   // });
 
   return (
-    <ScreenContainer className="flex-1 items-center justify-center">
+    <ScreenContainer
+      className="flex-1 items-center justify-center"
+      title="Teslo"
+      subtitle="Products list"
+    >
       {isLoading ? (
         <FullScreenLoader />
       ) : (

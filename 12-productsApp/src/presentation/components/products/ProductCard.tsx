@@ -26,14 +26,17 @@ export const ProductCard = (props: ProductCardProps) => {
         opacity: pressed ? 0.6 : 1,
       })}
     >
-      <View className="flex-1 h-full shadow justify-center items-center overflow-hidden bg-gray-50">
+      <View className="flex-1 h-full shadow items-center overflow-hidden bg-gray-50 dark:bg-gray-700 rounded">
         {product.images.length === 0 ? (
           <Image
             source={require('../../../assets/no-product-image.png')}
             className="w-full h-[200px]"
           />
         ) : (
-          <FadeInImage uri={product.images[0]} className="w-full h-[200px]" />
+          <FadeInImage
+            uri={product.images[0]}
+            className="w-full aspect-square"
+          />
         )}
         <Text className="text-center p-4" numberOfLines={2}>
           {product.title}

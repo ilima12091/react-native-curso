@@ -5,10 +5,10 @@ import { textStyles } from './styles';
 export type TextProps = React.ComponentProps<typeof RNText>;
 
 export const Text = (props: TextProps) => {
-  const { children, className = '' } = props;
+  const { children, className = '', ...rest } = props;
 
   return (
-    <RNText {...props} className={`${textStyles()} ${className} color-primary`}>
+    <RNText className={`${textStyles()} ${className} color-primary`} {...rest}>
       {children}
     </RNText>
   );

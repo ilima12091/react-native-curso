@@ -10,12 +10,12 @@ export type ButtonProps = {
   VariantProps<typeof buttonStyles>;
 
 export const Button = (props: ButtonProps) => {
-  const { label, className = '', variant = 'primary' } = props;
+  const { label, className = '', variant = 'primary', ...rest } = props;
 
   return (
     <Pressable
       className={`${buttonStyles({ variant })} ${className}`}
-      {...props}
+      {...rest}
     >
       <Text className={buttonTextStyles({ variant })}>{label}</Text>
     </Pressable>

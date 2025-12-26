@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Alert, Pressable, View } from 'react-native';
+import { Alert, View } from 'react-native';
 
 import { ScreenContainer } from '../../components/screenContainer/ScreenContainer';
 import { Text } from '../../components/text/Text';

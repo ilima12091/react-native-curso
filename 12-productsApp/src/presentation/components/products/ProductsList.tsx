@@ -23,7 +23,7 @@ export const ProductsList = (props: ProductsListProps) => {
     <FlatList
       data={products}
       keyExtractor={item => item.id}
-      className="w-full px-4"
+      className="w-full p-4"
       contentContainerClassName="gap-4"
       columnWrapperClassName="gap-4"
       numColumns={2}

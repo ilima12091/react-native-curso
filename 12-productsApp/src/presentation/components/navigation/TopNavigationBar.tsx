@@ -1,9 +1,11 @@
 import React from 'react';
-import { Pressable, View } from 'react-native';
+import { Pressable, View, useColorScheme } from 'react-native';
 import { Text } from '../text/Text';
 import Ionicons from '@react-native-vector-icons/ionicons';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
 import { RootStackParams } from '../../navigation/StackNavigator';
+import { colors } from '../../../config/theme/colors';
+import { useGetColor } from '../../hooks/useGetColor';
 
 export interface TopNavigationBarProps {
   title?: string;
@@ -13,20 +15,26 @@ export interface TopNavigationBarProps {
 export const TopNavigationBar = (props: TopNavigationBarProps) => {
   const { title, subtitle } = props;
 
+  const textColor = useGetColor('--text');
   const navigation = useNavigation<NavigationProp<RootStackParams>>();
 
   const onPressBack = () => {
     navigation.goBack();
   };
 
+  const canGoBack = navigation.canGoBack();
+
   return (
-    <View className="w-full bg-screen min-h-[60px] flex-row items-center px-4 border-b border-gray-300 py-2">
-      {navigation.canGoBack() && (
-        <Pressable onPress={onPressBack} className="active:opacity-60">
-          <Ionicons name="chevron-back" size={24} color="black" />
+    <View className="w-full bg-screen min-h-[60px] items-center justify-center px-8 border-b border-gray-300 py-2">
+      {canGoBack && (
+        <Pressable
+          onPress={onPressBack}
+          className="active:opacity-60 absolute left-4"
+        >
+          <Ionicons name="chevron-back" size={24} color={textColor} />
         </Pressable>
       )}
-      <View className="ml-auto mr-auto items-center">
+      <View className="items-center">
         {title && (
           <Text className="font-bold text-lg" numberOfLines={1}>
             {title}

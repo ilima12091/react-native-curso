@@ -1,8 +1,9 @@
 import React from 'react';
-import { Pressable, View } from 'react-native';
+import { View } from 'react-native';
+import { StackScreenProps } from '@react-navigation/stack';
+
 import { ScreenContainer } from '../../components/screenContainer/ScreenContainer';
 import { Button, Input } from '../../components/forms';
-import { StackScreenProps } from '@react-navigation/stack';
 import { RootStackParams } from '../../navigation/StackNavigator';
 import { Text } from '../../components/text/Text';
 

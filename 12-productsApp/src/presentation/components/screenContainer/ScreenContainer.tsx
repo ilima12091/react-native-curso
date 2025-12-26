@@ -10,6 +10,7 @@ export type ScreenContainerProps = {
   className?: string;
   hasVerticalPadding?: boolean;
   hasHorizontalPadding?: boolean;
+  showHeader?: boolean;
 } & PropsWithChildren &
   TopNavigationBarProps;
 
@@ -21,21 +22,22 @@ export const ScreenContainer = (props: ScreenContainerProps) => {
     subtitle,
     hasVerticalPadding = false,
     hasHorizontalPadding = false,
+    showHeader = true,
   } = props;
 
   const { top, bottom } = useSafeAreaInsets();
 
   const customClasses = `${
-    hasVerticalPadding ? 'py-8' : ''
-  } ${hasHorizontalPadding ? 'px-8' : ''}`;
+    hasVerticalPadding ? 'py-4' : ''
+  } ${hasHorizontalPadding ? 'px-4' : ''}`;
 
   return (
     <View
       style={{ paddingTop: top, paddingBottom: bottom }}
-      className={`flex-1 bg-screen ${customClasses} ${className} `}
+      className={`flex-1 bg-screen ${className} `}
     >
-      <TopNavigationBar title={title} subtitle={subtitle} />
-      {children}
+      {showHeader && <TopNavigationBar title={title} subtitle={subtitle} />}
+      <View className={`flex-1 w-full ${customClasses}`}>{children}</View>
     </View>
   );
 };

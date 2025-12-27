@@ -8,6 +8,7 @@ export const buttonStyles = tv({
       secondary: 'bg-gray-500',
       link: 'bg-transparent text-primary p-0',
       danger: 'bg-red-600',
+      fab: 'absolute bottom-8 right-8 w-16 h-16 rounded-full bg-primary items-center justify-center shadow-lg',
     },
   },
 });
@@ -20,6 +21,7 @@ export const buttonTextStyles = tv({
       secondary: 'text-white',
       link: '!color-primary',
       danger: 'text-white',
+      fab: 'text-white text-3xl',
     },
   },
 });

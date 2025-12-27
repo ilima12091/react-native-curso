@@ -1,38 +1,60 @@
-import React, { useState } from 'react';
-import { FlatList, RefreshControl } from 'react-native';
+import React, { useState, useCallback } from 'react';
+import { FlatList, RefreshControl, ListRenderItem, View } from 'react-native';
 
 import { Product } from '../../../domain/entities/product';
 import { ProductCard } from './ProductCard';
+import { useQueryClient } from '@tanstack/react-query';
+import { Text } from '../text/Text';
 
 interface ProductsListProps {
   products: Product[];
   fetchNextPage?: () => void;
+  hasNextPage?: boolean;
+  isFetchingNextPage?: boolean;
 }
 
 export const ProductsList = (props: ProductsListProps) => {
-  const { products, fetchNextPage } = props;
+  const {
+    products,
+    fetchNextPage,
+    hasNextPage = true,
+    isFetchingNextPage = false,
+  } = props;
+  const queryClient = useQueryClient();
+
   const [isRefreshing, setIsRefreshing] = useState(false);
 
-  const onPullToRefresh = async () => {
+  const onPullToRefresh = useCallback(async () => {
     setIsRefreshing(true);
-    await new Promise(resolve => setTimeout(resolve, 2000));
+    await queryClient.invalidateQueries({ queryKey: ['products', 'infinite'] });
     setIsRefreshing(false);
-  };
+  }, [queryClient]);
+
+  const renderItem: ListRenderItem<Product> = useCallback(
+    ({ item: product }) => <ProductCard product={product} />,
+    [],
+  );
+
+  const handleEndReached = useCallback(() => {
+    if (hasNextPage && !isFetchingNextPage && fetchNextPage) {
+      fetchNextPage();
+    }
+  }, [hasNextPage, isFetchingNextPage, fetchNextPage]);
 
   return (
     <FlatList
       data={products}
-      keyExtractor={item => item.id}
-      className="w-full p-4"
-      contentContainerClassName="gap-4"
-      columnWrapperClassName="gap-4"
+      keyExtractor={item => String(item.id)}
       numColumns={2}
-      renderItem={({ item: product }) => <ProductCard product={product} />}
-      onEndReached={fetchNextPage}
-      onEndReachedThreshold={0.8}
+      columnWrapperClassName="gap-2"
+      contentContainerClassName="gap-2"
+      renderItem={renderItem}
+      onEndReached={handleEndReached}
+      onEndReachedThreshold={0.6}
       refreshControl={
         <RefreshControl refreshing={isRefreshing} onRefresh={onPullToRefresh} />
       }
+      ListFooterComponent={isFetchingNextPage ? <View className="h-8" /> : null}
     />
   );
 };

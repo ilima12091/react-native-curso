@@ -44,7 +44,11 @@ export const LoginScreen = (props: LoginScreenProps) => {
   };
 
   return (
-    <ScreenContainer className="justify-center gap-4" hasHorizontalPadding>
+    <ScreenContainer
+      showHeader={false}
+      contentClassName="justify-center gap-4"
+      hasHorizontalPadding
+    >
       <View>
         <Text className="text-5xl leading-tight font-bold">Ingresar</Text>
         <Text>Por favor, ingrese para continuar</Text>

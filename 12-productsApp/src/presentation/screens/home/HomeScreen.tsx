@@ -1,5 +1,5 @@
 import React from 'react';
-import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
+import { useInfiniteQuery } from '@tanstack/react-query';
 
 import { ScreenContainer } from '../../components/screenContainer/ScreenContainer';
 import { getProductsByPage } from '../../../actions/products/get-products-by-page';
@@ -18,12 +18,6 @@ export const HomeScreen = () => {
     queryFn: ({ pageParam = 0 }) => getProductsByPage(pageParam),
     getNextPageParam: (lastPage, allPages) => allPages.length,
   });
-
-  // const { isLoading, data: products } = useQuery({
-  //   queryKey: ['products', 'infinite'],
-  //   staleTime: 1000 * 60 * 5,
-  //   queryFn: () => getProductsByPage(0),
-  // });
 
   return (
     <ScreenContainer

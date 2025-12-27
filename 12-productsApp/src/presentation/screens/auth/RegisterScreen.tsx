@@ -20,7 +20,11 @@ export const RegisterScreen = (props: RegisterScreenProps) => {
   };
 
   return (
-    <ScreenContainer className="justify-center gap-4" hasHorizontalPadding>
+    <ScreenContainer
+      showHeader={false}
+      contentClassName="justify-center gap-4"
+      hasHorizontalPadding
+    >
       <View>
         <Text className="text-5xl leading-tight font-bold">Crear cuenta</Text>
         <Text>Por favor, crea una cuenta para continuar</Text>

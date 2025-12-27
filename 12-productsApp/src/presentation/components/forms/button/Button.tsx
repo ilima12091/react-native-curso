@@ -14,7 +14,7 @@ export const Button = (props: ButtonProps) => {
 
   return (
     <Pressable
-      className={`${buttonStyles({ variant })} ${className}`}
+      className={`${className} ${buttonStyles({ variant })}`}
       {...rest}
     >
       <Text className={buttonTextStyles({ variant })}>{label}</Text>

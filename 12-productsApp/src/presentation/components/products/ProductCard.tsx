@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React from 'react';
 import { Product } from '../../../domain/entities/product';
 import { Image, Pressable, View } from 'react-native';
 import { FadeInImage } from '../ui/FadeInImage';
@@ -21,7 +21,7 @@ export const ProductCard = (props: ProductCardProps) => {
   return (
     <Pressable
       onPress={onPress}
-      className="bg-white flex-1"
+      className="bg-white flex-1 max-w-[48%] shadow"
       style={({ pressed }) => ({
         opacity: pressed ? 0.6 : 1,
       })}
@@ -33,10 +33,7 @@ export const ProductCard = (props: ProductCardProps) => {
             className="w-full h-48"
           />
         ) : (
-          <Image
-            source={{ uri: product.images[0] }}
-            className="w-full h-48 object-cover"
-          />
+          <FadeInImage uri={product.images[0]} className="w-full h-52" />
         )}
         <Text className="text-center p-4 flex-1" numberOfLines={2}>
           {product.title}

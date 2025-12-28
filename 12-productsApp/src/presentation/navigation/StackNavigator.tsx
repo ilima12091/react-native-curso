@@ -9,7 +9,7 @@ import { HomeScreen } from '../screens/home/HomeScreen';
 import { LoginScreen } from '../screens/auth/LoginScreen';
 import { RegisterScreen } from '../screens/auth/RegisterScreen';
 import { ProductScreen } from '../screens/products/ProductScreen';
-import { CustomHeader } from '../components/navigation/CustomHeader';
+import { CustomHeaderTitle } from '../components/navigation/CustomHeaderTitle';
 
 export type RootStackParams = {
   LoginScreen: undefined;
@@ -42,7 +42,13 @@ export const StackNavigator = () => {
       >
         <Screen name="LoginScreen" component={LoginScreen} />
         <Screen name="RegisterScreen" component={RegisterScreen} />
-        <Screen name="LoadingScreen" component={LoadingScreen} />
+        <Screen
+          name="LoadingScreen"
+          options={{
+            headerShown: false,
+          }}
+          component={LoadingScreen}
+        />
         <Screen name="HomeScreen" component={HomeScreen} />
       </Group>
       <Screen name="ProductScreen" component={ProductScreen} />

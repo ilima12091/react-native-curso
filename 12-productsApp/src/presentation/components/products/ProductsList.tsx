@@ -1,10 +1,9 @@
 import React, { useState, useCallback } from 'react';
 import { FlatList, RefreshControl, ListRenderItem, View } from 'react-native';
+import { useQueryClient } from '@tanstack/react-query';
 
 import { Product } from '../../../domain/entities/product';
 import { ProductCard } from './ProductCard';
-import { useQueryClient } from '@tanstack/react-query';
-import { Text } from '../text/Text';
 
 interface ProductsListProps {
   products: Product[];

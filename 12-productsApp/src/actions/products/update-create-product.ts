@@ -27,7 +27,7 @@ const createProduct = async (product: Partial<Product>): Promise<Product> => {
   const checkedImages = prepareImages(images);
 
   try {
-    const { data } = await tesloApi.post<TesloProduct>(`/products/${id}`, {
+    const { data } = await tesloApi.post<TesloProduct>(`/products`, {
       images: checkedImages,
       ...rest,
     });

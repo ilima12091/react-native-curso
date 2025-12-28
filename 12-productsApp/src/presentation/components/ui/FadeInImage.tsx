@@ -37,14 +37,18 @@ export const FadeInImage = (props: FadeInImageProps) => {
   return (
     <View className={`justify-center items-center ${className}`}>
       {isLoading && (
-        <ActivityIndicator className="absolute color-primary" size={30} />
+        <View className="w-full h-52 bg-gray-200 dark:bg-gray-700 rounded animate-pulse" />
       )}
 
+      {/* {isLoading && (
+        <ActivityIndicator className="absolute color-primary" size={30} />
+      )} */}
+
       <Animated.Image
-        className={`w-full h-full ${imageClassName}`}
+        className={`w-full h-full flex-1 ${imageClassName}`}
         source={{ uri }}
         onLoadEnd={onLoadEnd}
-        style={[style, { opacity: animatedOpacity, resizeMode: 'cover' }]}
+        style={[style, { opacity: animatedOpacity, objectFit: 'cover' }]}
       />
     </View>
   );

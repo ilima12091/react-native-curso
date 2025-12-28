@@ -1,18 +1,16 @@
 import React, { useRef } from 'react';
+import { KeyboardAvoidingView, ScrollView, View } from 'react-native';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { StackScreenProps } from '@react-navigation/stack';
+import { Formik } from 'formik';
 
 import { ScreenContainer } from '../../components/screenContainer/ScreenContainer';
 import { RootStackParams } from '../../navigation/StackNavigator';
-import { getProductById } from '../../../actions/products/get-product-by-id';
 import { FullScreenLoader } from '../../components/fullScreenLoader/FullScreenLoader';
-import { Text } from '../../components/text/Text';
-import { FlatList, KeyboardAvoidingView, ScrollView, View } from 'react-native';
-import { FadeInImage } from '../../components/ui/FadeInImage';
 import { Button, Input } from '../../components/forms';
 import { Gender, Product, Size } from '../../../domain/entities/product';
-import { Formik } from 'formik';
-import { updateCreateProduct } from '../../../actions/products/update-create-product';
+import { ProductImages } from '../../components/products/ProductImages';
+import { getProductById, updateCreateProduct } from '../../../actions/products';
 
 interface ProductScreenProps extends StackScreenProps<
   RootStackParams,
@@ -76,20 +74,7 @@ export const ProductScreen = (props: ProductScreenProps) => {
               keyboardVerticalOffset={120}
             >
               <ScrollView keyboardDismissMode="interactive">
-                <FlatList
-                  data={values.images}
-                  keyExtractor={item => item}
-                  contentContainerClassName="gap-4"
-                  renderItem={({ item }) => (
-                    <FadeInImage
-                      uri={item}
-                      className="w-[300px] h-[300px]"
-                      style={{ resizeMode: 'cover' }}
-                    />
-                  )}
-                  showsHorizontalScrollIndicator={false}
-                  horizontal
-                />
+                <ProductImages images={values.images} />
                 <View className="gap-4 p-4">
                   <Input
                     placeholder="Title"

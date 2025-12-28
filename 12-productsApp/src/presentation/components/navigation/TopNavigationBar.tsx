@@ -1,10 +1,10 @@
 import React from 'react';
-import { Pressable, View, useColorScheme } from 'react-native';
-import { Text } from '../text/Text';
+import { Pressable, View } from 'react-native';
 import Ionicons from '@react-native-vector-icons/ionicons';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
+
+import { Text } from '../text/Text';
 import { RootStackParams } from '../../navigation/StackNavigator';
-import { colors } from '../../../config/theme/colors';
 import { useGetColor } from '../../hooks/useGetColor';
 
 export interface TopNavigationBarProps {

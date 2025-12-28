@@ -46,9 +46,9 @@ export const HomeScreen = () => {
     navigation.navigate('ProductScreen', { productId: 'new' });
   };
 
-  // if (isLoading) {
-  //   return <FullScreenLoader />;
-  // }
+  if (isLoading) {
+    return <FullScreenLoader />;
+  }
 
   return (
     <ScreenContainer className="flex-1" title="Teslo" subtitle="Products list">

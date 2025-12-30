@@ -5,6 +5,7 @@ import {
   TopNavigationBar,
   TopNavigationBarProps,
 } from '../navigation/TopNavigationBar';
+import { IoniconsIconName } from '@react-native-vector-icons/ionicons';
 
 export type ScreenContainerProps = {
   className?: string;
@@ -12,6 +13,8 @@ export type ScreenContainerProps = {
   hasHorizontalPadding?: boolean;
   showHeader?: boolean;
   contentClassName?: string;
+  rightActionIconName?: IoniconsIconName;
+  onPressRightAction?: () => void;
 } & PropsWithChildren &
   TopNavigationBarProps;
 
@@ -25,6 +28,8 @@ export const ScreenContainer = (props: ScreenContainerProps) => {
     hasHorizontalPadding = false,
     showHeader = true,
     contentClassName = '',
+    rightActionIconName,
+    onPressRightAction,
   } = props;
 
   const { top, bottom } = useSafeAreaInsets();
@@ -38,7 +43,14 @@ export const ScreenContainer = (props: ScreenContainerProps) => {
       style={{ paddingTop: top, paddingBottom: bottom }}
       className={`flex-1 bg-screen ${className} `}
     >
-      {showHeader && <TopNavigationBar title={title} subtitle={subtitle} />}
+      {showHeader && (
+        <TopNavigationBar
+          title={title}
+          subtitle={subtitle}
+          rightActionIconName={rightActionIconName}
+          onPressRightAction={onPressRightAction}
+        />
+      )}
       <View className={`flex-1 w-full ${customClasses} ${contentClassName}`}>
         {children}
       </View>

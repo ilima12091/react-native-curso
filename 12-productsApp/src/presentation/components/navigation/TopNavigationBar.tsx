@@ -1,6 +1,8 @@
 import React from 'react';
 import { Pressable, View } from 'react-native';
-import Ionicons from '@react-native-vector-icons/ionicons';
+import Ionicons, {
+  IoniconsIconName,
+} from '@react-native-vector-icons/ionicons';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
 
 import { Text } from '../text/Text';
@@ -10,10 +12,12 @@ import { useGetColor } from '../../hooks/useGetColor';
 export interface TopNavigationBarProps {
   title?: string;
   subtitle?: string;
+  rightActionIconName?: IoniconsIconName;
+  onPressRightAction?: () => void;
 }
 
 export const TopNavigationBar = (props: TopNavigationBarProps) => {
-  const { title, subtitle } = props;
+  const { title, subtitle, rightActionIconName, onPressRightAction } = props;
 
   const textColor = useGetColor('--text');
   const navigation = useNavigation<NavigationProp<RootStackParams>>();
@@ -25,7 +29,7 @@ export const TopNavigationBar = (props: TopNavigationBarProps) => {
   const canGoBack = navigation.canGoBack();
 
   return (
-    <View className="w-full bg-screen min-h-[60px] items-center justify-center px-8 border-b border-gray-300 py-2">
+    <View className="w-full bg-screen min-h-[60px] items-center justify-center px-8 border-b border-gray-300 dark:border-gray-800 py-2">
       {canGoBack && (
         <Pressable
           onPress={onPressBack}
@@ -46,6 +50,14 @@ export const TopNavigationBar = (props: TopNavigationBarProps) => {
           </Text>
         )}
       </View>
+      {rightActionIconName && onPressRightAction && (
+        <Pressable
+          onPress={onPressRightAction}
+          className="active:opacity-60 absolute right-4"
+        >
+          <Ionicons name={rightActionIconName} size={24} color={textColor} />
+        </Pressable>
+      )}
     </View>
   );
 };

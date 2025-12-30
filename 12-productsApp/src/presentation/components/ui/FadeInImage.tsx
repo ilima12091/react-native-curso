@@ -48,7 +48,7 @@ export const FadeInImage = (props: FadeInImageProps) => {
         className={`w-full h-full flex-1 ${imageClassName}`}
         source={{ uri }}
         onLoadEnd={onLoadEnd}
-        style={[style, { opacity: animatedOpacity, objectFit: 'cover' }]}
+        style={[{ opacity: animatedOpacity, objectFit: 'cover' }, style]}
       />
     </View>
   );

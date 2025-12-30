@@ -25,11 +25,7 @@ export const ProductImages = (props: ProductImagesProps) => {
       keyExtractor={item => item}
       contentContainerClassName="gap-4"
       renderItem={({ item }) => (
-        <FadeInImage
-          uri={item}
-          className="w-[300px] h-[300px]"
-          style={{ resizeMode: 'cover' }}
-        />
+        <FadeInImage uri={item} className="w-[300px] h-[300px]" />
       )}
       showsHorizontalScrollIndicator={false}
       horizontal

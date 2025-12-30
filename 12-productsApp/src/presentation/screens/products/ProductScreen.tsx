@@ -11,6 +11,7 @@ import { Button, Input } from '../../components/forms';
 import { Gender, Product, Size } from '../../../domain/entities/product';
 import { ProductImages } from '../../components/products/ProductImages';
 import { getProductById, updateCreateProduct } from '../../../actions/products';
+import { CameraAdapter } from '../../../config/adapters/camera.adapter';
 
 interface ProductScreenProps extends StackScreenProps<
   RootStackParams,
@@ -38,7 +39,6 @@ export const ProductScreen = (props: ProductScreenProps) => {
       return result;
     },
     onSuccess: (data: Product) => {
-      console.log({ data });
       productIdRef.current = data.id;
 
       queryClient.invalidateQueries({
@@ -59,12 +59,23 @@ export const ProductScreen = (props: ProductScreenProps) => {
     );
   }
 
+  const onPressTakePicture = async (
+    values: Product,
+    setFieldValue: (field: string, value: any) => void,
+  ) => {
+    const photos = await CameraAdapter.pickImageFromLibrary();
+
+    setFieldValue('images', [...values.images, ...photos]);
+  };
+
   return (
     <Formik initialValues={product} onSubmit={mutation.mutate}>
       {({ handleChange, handleSubmit, values, errors, setFieldValue }) => (
         <ScreenContainer
           title={values.title || 'Product'}
           subtitle={`Cost: ${values.price}`}
+          rightActionIconName="image-outline"
+          onPressRightAction={() => onPressTakePicture(values, setFieldValue)}
         >
           {isLoading ? (
             <FullScreenLoader />

@@ -7,12 +7,6 @@ export const getProductsByPage = async (
   page: number,
   limit: number = 20,
 ): Promise<Product[]> => {
-  console.log({
-    page,
-    limit,
-  });
-  console.log('FETCH PAGE', page, 'offset', page * limit, 'time', Date.now());
-
   try {
     const { data } = await tesloApi.get<TesloProduct[]>(
       `/products?offset=${page * limit}&limit=${limit}`,
@@ -20,7 +14,6 @@ export const getProductsByPage = async (
 
     const products = data.map(ProductMapper.tesloProductToEntity);
 
-    console.log('new products', products);
     return products;
   } catch (error) {
     console.log(error);

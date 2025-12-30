@@ -21,7 +21,7 @@ export const ProductCard = (props: ProductCardProps) => {
   return (
     <Pressable
       onPress={onPress}
-      className="bg-white flex-1 max-w-[48%] shadow"
+      className="flex-1 max-w-[48%] shadow"
       style={({ pressed }) => ({
         opacity: pressed ? 0.6 : 1,
       })}

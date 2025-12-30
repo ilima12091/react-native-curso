@@ -8,6 +8,7 @@ import { ProductsList } from '../../components/products/ProductsList';
 import { FAB } from '../../components/ui/FAB';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
 import { RootStackParams } from '../../navigation/StackNavigator';
+import { useAuthStore } from '../../store/auth/useAuthStore';
 
 export const HomeScreen = () => {
   const {
@@ -21,7 +22,6 @@ export const HomeScreen = () => {
     staleTime: 1000 * 60 * 5,
     initialPageParam: 0,
     queryFn: ({ pageParam = 0 }) => {
-      console.log('pageParam', pageParam, typeof pageParam);
       return getProductsByPage(pageParam);
     },
     getNextPageParam: (lastPage, allPages, lastPageParam) => {
@@ -31,6 +31,8 @@ export const HomeScreen = () => {
   });
 
   const navigation = useNavigation<NavigationProp<RootStackParams>>();
+
+  const { logout } = useAuthStore();
 
   const flatProducts = useMemo(() => {
     return products?.pages?.flat() ?? [];
@@ -51,7 +53,13 @@ export const HomeScreen = () => {
   }
 
   return (
-    <ScreenContainer className="flex-1" title="Teslo" subtitle="Products list">
+    <ScreenContainer
+      className="flex-1"
+      title="Teslo"
+      subtitle="Products list"
+      rightActionIconName="log-out-outline"
+      onPressRightAction={logout}
+    >
       <ProductsList
         products={flatProducts}
         fetchNextPage={fetchNextPage}
